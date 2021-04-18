@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms'
 import { AppComponent } from './app.component';
 import { TodosComponent } from './components/todos/todos.component';
 import { FilterPipe } from './Pipes/filter.pipe';
+import { SortPipe } from './pipes/sort.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodosComponent,
-    FilterPipe
+    FilterPipe,
+    SortPipe
   ],
   imports: [
     BrowserModule,

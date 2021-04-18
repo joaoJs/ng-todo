@@ -11,7 +11,7 @@
         <input type="text" name="input-description" minlength="5" ng-required="true"
             placeholder="Please enter your description..." class="todo-input" [(ngModel)]="inputDescription"
             #desc='ngModel' />
-        <div *ngIf="desc.invalid && (desc.dirty)">
+        <div *ngIf="desc.invalid && desc.dirty">
             <p *ngIf="desc.errors.required">Description is required</p>
             <p *ngIf="desc.errors.minlength">Desctiption must be at least 5 characters long!</p>
         </div>
@@ -38,8 +38,8 @@
     <!-- Sorting Section -->
     <div class="sort-div">
         <h2>Sort by: </h2>
-        <button class="sort-btn" (click)="filterTodoAlph()">Title</button>
-        <button class="sort-btn" (click)="filterTodoDate()">Sort by date</button>
+        <button class="sort-btn" (click)="setOrderByKey('title')">Title</button>
+        <button class="sort-btn" (click)="setOrderByKey('duedate')">Sort by date</button>
     </div>
     <div class="sort-div">
         <h2> Sort by Tag:</h2>
@@ -59,14 +59,14 @@
         <h3 class="content">Tags</h3>
         <h3 class="delete">Remove</h3>
     </div>
-    <div *ngFor="let todo of todos |filter:searchTag ; let i = index;" class="todo {{ (todo.completed ? 'done': '') }}">
+    <div *ngFor="let todo of todos |filter:searchTag |sort: orderByKey; let i = index;" class="todo {{ (todo.completed ? 'done': '') }}">
         <div class="id">{{ i + 1 }}</div>
         <div class="title"> {{ todo.title }}</div>
         <div class=" content">{{ todo.content }}</div>
         <div class=" content">{{ todo.duedate | date }}</div>
         <div class=" tags">
-            <div *ngFor="let item of todo.itemTags; let j = index">
-                <div class="content">{{ todo.itemTags[j].name }}</div>
+            <div *ngFor="let item of todo.itemTags">
+                <div class="content">{{ item.name }}</div>
             </div>
         </div>
         <button class=" delete" (click)="deleteTodo(i)">Remove</button>
